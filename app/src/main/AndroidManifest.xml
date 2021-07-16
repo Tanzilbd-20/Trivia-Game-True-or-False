@@ -2,9 +2,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.trivia5">
     <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-            android:name=".controller.AppController"
+        android:name=".controller.AppController"
+        android:hardwareAccelerated="true"
         android:allowBackup="true"
         android:icon="@mipmap/trivia"
         android:label="Trivia"
@@ -21,6 +23,10 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+        <!-- Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713 -->
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-4514423906552044~3518491612"/>
     </application>
 
 </manifest>

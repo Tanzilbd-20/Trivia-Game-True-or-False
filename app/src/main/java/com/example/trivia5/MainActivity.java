@@ -1,11 +1,13 @@
 package com.example.trivia5;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Toast;
@@ -15,6 +17,16 @@ import com.example.trivia5.databinding.ActivityMainBinding;
 import com.example.trivia5.model.QuestionModel;
 import com.example.trivia5.score.SaveGameState;
 import com.example.trivia5.score.Score;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -30,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
     private int high_score = 0;
     private SaveGameState saveGameState;
     private int avoidDoubleAndSkip = 0;
+    private AdView mAdView;
+    private int maintainAds = 1;
+    private AdRequest adRequest;
+    private InterstitialAd mInterstitialAd;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -47,6 +63,21 @@ public class MainActivity extends AppCompatActivity {
        high_score = saveGameState.getHighScore();
        current_score.setScore(score);
        avoidDoubleAndSkip = saveGameState.getAvoidDoubleAndSkip();
+       adRequest = new AdRequest.Builder().build();
+
+
+       //Admob ads
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                //Calling Ads Method
+                createPersonalizeAds();
+            }
+        });
+        //Initializing Banner Ads
+        mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
 
        //Calling Questions via Repository and QuestionProcessingPart Interface.
         questions = new Repository().getQuestion(questionModels -> {
@@ -69,14 +100,23 @@ public class MainActivity extends AppCompatActivity {
 
         //Setting next button.
         binding.nextButton.setOnClickListener(view -> {
+            if(maintainAds<10){
+                maintainAds++;
+            }else {
+                maintainAds =1;
+            }
+            setAds();
             if(avoidDoubleAndSkip == 1){
-                avoidDoubleAndSkip--;
-                current_question = (current_question+1) % questions.size();
-                updateQuestion();
+                        avoidDoubleAndSkip--;
+                        current_question = (current_question+1) % questions.size();
+                        updateQuestion();
+
+
             }else {
                 avoidDoubleAndSkip = 0;
                 Snackbar.make(binding.cardView,"Please Select Your Answer",Snackbar.LENGTH_SHORT).show();
             }
+            Log.d("TAG", "onCreate: "+maintainAds);
 
         });
 
@@ -264,5 +304,75 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         //calling save game data in onPause to save game status when app is destroyed.,
         saveGame();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        createPersonalizeAds();
+    }
+
+    private void setAds(){
+        if(maintainAds ==10){
+            if (mInterstitialAd != null) {
+                mInterstitialAd.show(MainActivity.this);
+            } else {
+                Log.d("TAG", "Ads Not available: ");
+            }
+        }
+    }
+
+    private void createPersonalizeAds() {
+        loadTheAds(adRequest);
+    }
+
+    private void loadTheAds(AdRequest adRequest) {
+        InterstitialAd.load(this,(getString(R.string.interstitial_id_real)), adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i("AdMob...", "onAdLoaded");
+
+
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback(){
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                Log.d("AdMob...", "The ad was dismissed.");
+
+                                //Calling intent method after ads.
+                                updateQuestion();
+
+
+
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when fullscreen content failed to show.
+                                Log.d("AdMob...", "The ad failed to show.");
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when fullscreen content is shown.
+                                // Make sure to set your reference to null so you don't
+                                // show it a second time.
+                                mInterstitialAd = null;
+                                Log.d("AdMob...", "The ad was shown.");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i("AdMob...", loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
     }
 }

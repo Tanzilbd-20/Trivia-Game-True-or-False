@@ -10,4 +10,6 @@
     <string name="wrong_answer">Wrong</string>
     <string name="high_score">High Score : 0</string>
     <string name="current_score">Current Score\n0</string>
+    <string name="banner_id_real">ca-app-pub-4514423906552044/8431072793</string>
+    <string name="interstitial_id_real">ca-app-pub-4514423906552044/5761511578</string>
 </resources>
