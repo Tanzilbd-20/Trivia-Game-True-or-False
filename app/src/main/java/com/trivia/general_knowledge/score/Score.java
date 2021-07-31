@@ -1,4 +1,4 @@
-package com.example.trivia5.score;
+package com.trivia.general_knowledge.score;
 
 //This Method is for set and get our score.
 public class Score {

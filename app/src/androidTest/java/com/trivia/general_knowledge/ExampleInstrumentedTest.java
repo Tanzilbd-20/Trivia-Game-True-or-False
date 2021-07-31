@@ -1,4 +1,4 @@
-package com.example.trivia5;
+package com.trivia.general_knowledge;
 
 import android.content.Context;
 

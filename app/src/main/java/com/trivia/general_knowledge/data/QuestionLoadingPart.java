@@ -1,6 +1,6 @@
-package com.example.trivia5.data;
+package com.trivia.general_knowledge.data;
 
-import com.example.trivia5.model.QuestionModel;
+import com.trivia.general_knowledge.model.QuestionModel;
 
 import java.util.ArrayList;
 //This class for making sure that data is available.

@@ -1,4 +1,4 @@
-package com.example.trivia5.score;
+package com.trivia.general_knowledge.score;
 
 import android.app.Activity;
 import android.content.Context;

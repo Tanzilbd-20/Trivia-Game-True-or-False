@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Trivia 5</string>
     <string name="app_title_namE">Trivia</string>
-    <string name="question_out_of">Question : 90/897</string>
-    <string name="question_tv">This is question textview all the question will be placed here. lot of questions are available to be placed here</string>
+    <string name="question_out_of">Question : 0/897</string>
+    <string name="question_tv">Make sure your internet connection is on while you using this app. Otherwise you will not be able see any Question.</string>
     <string name="true_btn_text">TRUE</string>
     <string name="false_button_text">FALSE</string>
     <string name="next_button_text">NEXT</string>

@@ -1,4 +1,4 @@
-package com.example.trivia5.controller;
+package com.trivia.general_knowledge.controller;
 
 import android.app.Application;
 

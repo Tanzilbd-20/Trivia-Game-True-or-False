@@ -1,8 +1,4 @@
-package com.example.trivia5;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.databinding.DataBindingUtil;
+package com.trivia.general_knowledge;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
@@ -10,13 +6,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.Toast;
 
-import com.example.trivia5.data.Repository;
-import com.example.trivia5.databinding.ActivityMainBinding;
-import com.example.trivia5.model.QuestionModel;
-import com.example.trivia5.score.SaveGameState;
-import com.example.trivia5.score.Score;
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.databinding.DataBindingUtil;
+
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
@@ -28,6 +22,11 @@ import com.google.android.gms.ads.initialization.OnInitializationCompleteListene
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.snackbar.Snackbar;
+import com.trivia.general_knowledge.data.Repository;
+import com.trivia.general_knowledge.databinding.ActivityMainBinding;
+import com.trivia.general_knowledge.model.QuestionModel;
+import com.trivia.general_knowledge.score.SaveGameState;
+import com.trivia.general_knowledge.score.Score;
 
 import java.util.List;
 

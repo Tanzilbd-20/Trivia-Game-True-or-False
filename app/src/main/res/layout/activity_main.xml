@@ -39,8 +39,8 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/cardView"
-            android:layout_width="409dp"
-            android:layout_height="150dp"
+            android:layout_width="393dp"
+            android:layout_height="152dp"
             android:backgroundTint="#721A3DEF"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -51,20 +51,21 @@
                 style="@style/text_style"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:padding="15dp"
                 android:text="@string/question_tv"
                 android:textColor="#FFFFFF"
-                android:textSize="16sp" />
+                android:textSize="14sp" />
         </androidx.cardview.widget.CardView>
 
         <Button
             android:id="@+id/true_button"
+            style="@style/button_style"
             android:layout_marginTop="16dp"
             android:text="@string/true_btn_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.498"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/cardView"
-            style="@style/button_style" />
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
 
         <Button
             android:id="@+id/false_button"

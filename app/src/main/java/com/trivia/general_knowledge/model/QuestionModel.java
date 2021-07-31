@@ -1,4 +1,4 @@
-package com.example.trivia5.model;
+package com.trivia.general_knowledge.model;
 
 public class QuestionModel {
 

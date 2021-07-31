@@ -1,15 +1,10 @@
-package com.example.trivia5.data;
-
-import android.util.Log;
+package com.trivia.general_knowledge.data;
 
 import com.android.volley.Request;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
-import com.example.trivia5.controller.AppController;
-import com.example.trivia5.model.QuestionModel;
+import com.trivia.general_knowledge.controller.AppController;
+import com.trivia.general_knowledge.model.QuestionModel;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 
 import java.util.ArrayList;

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.trivia5">
+    package="com.trivia.general_knowledge">
     <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
     <application
-        android:name=".controller.AppController"
+        android:name="com.trivia.general_knowledge.controller.AppController"
         android:hardwareAccelerated="true"
         android:allowBackup="true"
         android:icon="@mipmap/trivia"
         android:label="Trivia"
-        android:roundIcon="@mipmap/trivia"
+        android:roundIcon="@mipmap/ic_launcher"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Trivia5">
-        <activity android:name=".MainActivity">
+        android:theme="@style/Theme.MaterialComponents.DayNight.NoActionBar">
+        <activity android:name="com.trivia.general_knowledge.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

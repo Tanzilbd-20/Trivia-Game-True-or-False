@@ -6,7 +6,7 @@ android {
     compileSdkVersion 30
 
     defaultConfig {
-        applicationId "com.example.trivia5"
+        applicationId "com.trivia.general_knowledge"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1
