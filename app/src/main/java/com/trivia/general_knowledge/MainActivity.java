@@ -2,6 +2,8 @@ package com.trivia.general_knowledge;
 
 import android.annotation.SuppressLint;
 import android.graphics.Color;
+import android.media.AudioAttributes;
+import android.media.SoundPool;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.animation.Animation;
@@ -45,6 +47,8 @@ public class MainActivity extends AppCompatActivity {
     private int maintainAds = 1;
     private AdRequest adRequest;
     private InterstitialAd mInterstitialAd;
+    private SoundPool soundPool;
+    private int correct_sound ,wrong_sound,background_music;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -55,6 +59,27 @@ public class MainActivity extends AppCompatActivity {
         binding = DataBindingUtil.setContentView(this,R.layout.activity_main);
         current_score = new Score();
         saveGameState = new SaveGameState(this);
+
+        AudioAttributes audioAttributes = new AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+                .setUsage(AudioAttributes.USAGE_ALARM)
+                .build();
+
+        soundPool = new SoundPool.Builder()
+                .setMaxStreams(2)
+                .setAudioAttributes(audioAttributes)
+                .build();
+
+        correct_sound = soundPool.load(this,R.raw.correct,1);
+        wrong_sound = soundPool.load(this,R.raw.milena_wrong_answer,1);
+
+
+
+
+
+
+
+
 
         //Retrieving and setting saved data...
        score = saveGameState.getCurrentScore();
@@ -99,6 +124,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Setting next button.
         binding.nextButton.setOnClickListener(view -> {
+
             if(maintainAds<10){
                 maintainAds++;
             }else {
@@ -135,11 +161,13 @@ public class MainActivity extends AppCompatActivity {
                 addScore();
                 correctAnswerAnimation();
                 blinkAnimation();
+                soundPool.play(correct_sound,1,1,1,0,2);
             }else {
                 snackMessage = R.string.wrong_answer;
                 deductScore();
                 wrongAnswerAnimation();
                 shakeAnimation();
+                soundPool.play(wrong_sound,1,1,1,0,2);
             }
            saveGameState.saveHighScore(current_score.getScore());
             updateQuestion();
@@ -303,6 +331,10 @@ public class MainActivity extends AppCompatActivity {
         super.onDestroy();
         //calling save game data in onPause to save game status when app is destroyed.,
         saveGame();
+        if(soundPool !=null){
+            soundPool.release();
+            soundPool = null;
+        }
     }
 
     @Override
